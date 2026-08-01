@@ -1,4 +1,3 @@
-import Image from "next/image";
 import {
   Card,
   CardDescription,
@@ -6,18 +5,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import UnderlinedText from "@/components/UnderlinedText";
+import CityScoreIllustration from "@/components/CityScoreIllustration";
 
 export default function Features() {
   return (
     <section className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 px-4 md:px-8">
       <div className="w-full flex justify-center items-center rounded-lg">
-        <Image
-          src="/hero.png"
-          alt="Hero Image"
-          width={575}
-          height={575}
-          className="rounded-lg w-sm lg:w-xl object-cover"
-        />
+        <CityScoreIllustration />
       </div>
       <div>
         <Card className="border-none shadow-none">
