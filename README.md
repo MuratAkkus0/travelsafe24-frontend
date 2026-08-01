@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TravelSafe24
 
-## Getting Started
+A Next.js marketing landing page for "TravelSafe24," a concept product that
+helps people search, compare, and find the city that best fits what they're
+looking for. This repository is a front-end portfolio piece: it demonstrates
+building a polished, accessible marketing site plus a few supporting account
+pages, not a working product.
 
-First, run the development server:
+## What this demonstrates
+
+- A Next.js (App Router) + TypeScript project using Tailwind CSS v4 and
+  shadcn/ui-style components (`Card`, `Button`, `Sheet`, `Separator`, plus
+  hand-built `Input`/`Label`).
+- A responsive header with a Radix `Sheet`-based mobile navigation drawer.
+- A hero section with a small typing-text animation (GSAP-driven cursor).
+- Accessible, client-validated forms (Contact, Log in, Register) using
+  `aria-invalid` / `aria-describedby` and honest status messages instead of
+  fake success states.
+- An original inline SVG illustration instead of a photo/screenshot asset.
+
+## Tech used
+
+- [Next.js](https://nextjs.org) 16 (App Router), React 19, TypeScript
+- Tailwind CSS v4, `class-variance-authority`, `tailwind-merge`
+- Radix UI primitives (via `radix-ui`) for the `Sheet` mobile menu
+- GSAP for the hero's cursor-blink animation
+- ESLint (`eslint-config-next`)
+
+## Running it locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
+# then open http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Other useful scripts:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm lint    # ESLint
+pnpm build   # Production build (also type-checks)
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Pages
 
-## Learn More
+- `/` &mdash; the landing page (Hero, Features, Footer).
+- `/about` &mdash; a short description of the TravelSafe24 concept and this
+  project's honest scope.
+- `/contact` &mdash; a contact form.
+- `/login` and `/register` &mdash; account UI mockups.
 
-To learn more about Next.js, take a look at the following resources:
+## Scope and honesty notes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **This is a landing page and UI demo, not a working product.** There is no
+  city database, no matching/scoring engine, and no backend.
+- **None of the forms submit anywhere.** Contact, Log in, and Register all
+  validate input in the browser (required fields, email format, password
+  length/confirmation) and show an explicit message stating that nothing was
+  actually sent, and that no account or session was actually created.
+- **The "fit score" illustration on the landing page is original artwork**
+  (`components/CityScoreIllustration.tsx`, plain inline SVG), not a photo or
+  a map screenshot.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project history / cleanup notes
 
-## Deploy on Vercel
+This repository was bootstrapped with `create-next-app` and then partially
+built out; the README was still the untouched scaffold text, and a few
+loose ends remained:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `package.json`'s `name` field said `"job-app"` (left over from a different
+  starter/copy-paste) and has been corrected to `travelsafe24-frontend`.
+- Two stray empty scratch files, `test.txt` and `text.tct`, were removed.
+- The default `create-next-app` metadata ("Create Next App" title/description)
+  in `app/layout.tsx` has been replaced with real title/description text,
+  and the page content is now wrapped in a semantic `<main>` landmark with a
+  "Skip to main content" link.
+- `public/hero.png` was a cropped map screenshot (Hamburg district
+  boundaries, in a Google Maps-style rendering, with no attribution or
+  Google branding retained) used as a "Features" section image. Cropped map
+  screenshots without required attribution are a licensing risk, and the
+  file's real provenance couldn't be confirmed, so it was removed and
+  replaced with an original inline SVG illustration.
+- `app/favicon.ico` was the unmodified default Next.js/Vercel triangle icon,
+  effectively using Vercel's mark as this unrelated project's favicon. It
+  was removed and replaced with an original icon at `app/icon.svg` (a simple
+  pin-in-shield mark in the site's accent color), which Next.js picks up
+  automatically via its file-based icon convention.
+- The unused default `create-next-app` sample images
+  (`next.svg`, `vercel.svg`, `file.svg`, `globe.svg`, `window.svg`) were
+  removed; none of them were referenced anywhere in the code.
+- The header's nav linked to `/about`, `/contact`, `/login`, and `/register`,
+  none of which existed, so every one of those links 404'd. All four pages
+  were built: `/about` (static copy), `/contact` (validated contact form),
+  and `/login` / `/register` (validated UI-only account forms, explicit that
+  they are demos with no real authentication).
+- `components/TextType.tsx` had two lint errors under this project's ESLint
+  config (React Compiler's `react-hooks/refs` rule, and a missing
+  `useEffect` dependency). Both were fixed: the dynamic root element is now
+  rendered via JSX (so the ref is a literal JSX attribute rather than a
+  ref threaded through a spread props object into `createElement`), and the
+  memoized `getRandomSpeed` callback was added to its effect's dependency
+  array.
+- `pnpm lint` and `pnpm build` both pass as of this cleanup.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Screenshot
+
+`docs/screenshot.png` (add a screenshot here once available)
